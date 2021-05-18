@@ -1,0 +1,88 @@
+body {
+    background-color: #1a1927;
+    font-family: Helvetica, Arial, sans-serif;
+    display: grid;
+    grid-template-rows: 250px 250px;
+    padding: 0;
+    margin: 0;
+
+    .top {
+        -webkit-user-select: none;
+        -webkit-app-region: drag;
+        background-image: url("../../images/login-left.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position-y: bottom;
+    }
+
+    .bottom {
+        padding: 0 2rem 2rem 2rem;
+
+        p {
+            margin: 0;
+            font-weight: bolder;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .wrapper {
+            width: 100%;
+            -webkit-app-region: no-drag;
+            margin-top: 3rem;
+            
+            label {
+                font-size: 0.7rem;
+                text-transform: uppercase;
+                color: #96caf8;
+                background: #1a1927;
+                position: relative;
+                top: 0.5rem;
+                left: 1.5rem;
+                padding: 0 0.5rem;
+                display: inline;
+                width: fit-content;
+            }
+
+            input[type="text"],
+            input[type="password"] {
+                height: 2.5rem;
+                background: none;
+                border: 2px solid #96caf8;
+                padding: 0.5rem 1rem;
+                outline: none;
+                border-radius: 10px;
+                width: 100%;
+                box-sizing: border-box;
+                color: #96caf8be;
+            }
+        }
+
+        .buttons {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            button {
+                height: 3rem;
+                background: none;
+                border: none;
+                text-transform: uppercase;
+                font-weight: 700;
+                outline: none;
+                cursor: pointer;
+
+                &:nth-of-type(1) {
+                    color: rgb(228, 94, 94);
+                }
+
+                &:nth-of-type(2) {
+                    color: #96caf8;
+                }
+            }
+        }
+    }
+}

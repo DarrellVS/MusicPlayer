@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+
+    <link rel="stylesheet" href="../css/index/styles.css">
+</head>
+
+<body>
+    <main>
+        <notification-container>
+        </notification-container>
+
+        <search-container>
+            <search-bar>
+                <input type="text" id="search-input" placeholder="Search..." autocomplete="off" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+                    id="search-icon" viewBox="0 0 16 16">
+                    <path
+                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                </svg>
+            </search-bar>
+
+            <search-results style="display: none;">
+                <div class="blur"></div>
+                <div class="wrapper" id="result-container">
+
+                </div>
+            </search-results>
+        </search-container>
+
+        <nav class="titlebar">
+            <div class="drag-region"></div>
+            <button id="minimize-btn"></button>
+            <button id="fullscreen-btn"></button>
+            <button id="close-btn"></button>
+        </nav>
+
+        <aside>
+            <div class="user-area">
+                <div class="pfp" id="avatar"></div>
+                <div class="right">
+                    <p class="name" id="username">Username</p>
+                    <button id="sign-out">SIGN OUT</button>
+                </div>
+            </div>
+            <div class="items">
+                <div class="top">
+                    <div class="item nav-label active" id="side-nav-your-zone" onclick="setPage('your-zone')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-house" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
+                            <path fill-rule="evenodd"
+                                d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z" />
+                        </svg>
+
+                        <p>YOUR ZONE</p>
+                    </div>
+
+                    <div class="item nav-label" id="side-nav-browse" onclick="setPage('browse')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-collection" viewBox="0 0 16 16">
+                            <path
+                                d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-11zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zm1.5.5A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-13z" />
+                        </svg>
+
+                        <p>BROWSE</p>
+                    </div>
+
+                    <div class="item nav-label" id="side-nav-playlists" onclick="setPage('playlists')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-music-note-list" viewBox="0 0 16 16">
+                            <path d="M12 13c0 1.105-1.12 2-2.5 2S7 14.105 7 13s1.12-2 2.5-2 2.5.895 2.5 2z" />
+                            <path fill-rule="evenodd" d="M12 3v10h-1V3h1z" />
+                            <path d="M11 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 16 2.22V4l-5 1V2.82z" />
+                            <path fill-rule="evenodd"
+                                d="M0 11.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 .5 7H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 .5 3H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z" />
+                        </svg>
+
+                        <p>PLAYLISTS</p>
+                    </div>
+                </div>
+
+                <div class="queue-spacer">
+                    QUEUE
+                </div>
+
+                <div class="queue" id="queue-container">
+
+                </div>
+
+                <div class="volume-area">
+                    <div class="container">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            id="volume-min-icon" class="bi bi-volume-off volume-icon" viewBox="0 0 16 16"
+                            style="display:none;">
+                            <path
+                                d="M10.717 3.55A.5.5 0 0 1 11 4v8a.5.5 0 0 1-.812.39L7.825 10.5H5.5A.5.5 0 0 1 5 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06zM10 5.04L8.312 6.39A.5.5 0 0 1 8 6.5H6v3h2a.5.5 0 0 1 .312.11L10 10.96V5.04z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            id="volume-mid-icon" class="bi bi-volume-down volume-icon" viewBox="0 0 16 16"
+                            style="display:none;">
+                            <path
+                                d="M9 4a.5.5 0 0 0-.812-.39L5.825 5.5H3.5A.5.5 0 0 0 3 6v4a.5.5 0 0 0 .5.5h2.325l2.363 1.89A.5.5 0 0 0 9 12V4zM6.312 6.39L8 5.04v5.92L6.312 9.61A.5.5 0 0 0 6 9.5H4v-3h2a.5.5 0 0 0 .312-.11zM12.025 8a4.486 4.486 0 0 1-1.318 3.182L10 10.475A3.489 3.489 0 0 0 11.025 8 3.49 3.49 0 0 0 10 5.525l.707-.707A4.486 4.486 0 0 1 12.025 8z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            id="volume-max-icon" class="bi bi-volume-up volume-icon" viewBox="0 0 16 16"
+                            style="display:inline;">
+                            <path
+                                d="M11.536 14.01A8.473 8.473 0 0 0 14.026 8a8.473 8.473 0 0 0-2.49-6.01l-.708.707A7.476 7.476 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303l.708.707z" />
+                            <path
+                                d="M10.121 12.596A6.48 6.48 0 0 0 12.025 8a6.48 6.48 0 0 0-1.904-4.596l-.707.707A5.483 5.483 0 0 1 11.025 8a5.483 5.483 0 0 1-1.61 3.89l.706.706z" />
+                            <path
+                                d="M10.025 8a4.486 4.486 0 0 1-1.318 3.182L8 10.475A3.489 3.489 0 0 0 9.025 8c0-.966-.392-1.841-1.025-2.475l.707-.707A4.486 4.486 0 0 1 10.025 8zM7 4a.5.5 0 0 0-.812-.39L3.825 5.5H1.5A.5.5 0 0 0 1 6v4a.5.5 0 0 0 .5.5h2.325l2.363 1.89A.5.5 0 0 0 7 12V4zM4.312 6.39L6 5.04v5.92L4.312 9.61A.5.5 0 0 0 4 9.5H2v-3h2a.5.5 0 0 0 .312-.11z" />
+                        </svg>
+                        <input type="range" min="1" max="100" value="100" class="slider" id="volume-slider">
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <nav class="control-bar">
+            <div class="track-info">
+                <img class="now-playing-cover" src="../images/placeholder_cover.jpg" alt="">
+                <div class="info">
+                    <p class="title now-playing-title">Walk with kings</p>
+                    <p class="artists now-playing-artists">MYST</p>
+                </div>
+            </div>
+
+            <div class="main-bar">
+                <div class="previous" style="opacity: 0" id="previous-track-container">
+                    <div class="title">
+                        PREVIOUS
+                    </div>
+                    <div class="track previous-track">
+                        Despacito
+                    </div>
+                </div>
+
+                <div class="controls" id="player-container">
+                    <audio preload="metadata"></audio>
+                    <div class="buttons">
+                        <button id="backward-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-skip-backward-fill navigation-icon" viewBox="0 0 16 16">
+                                <path
+                                    d="M.5 3.5A.5.5 0 0 0 0 4v8a.5.5 0 0 0 1 0V8.753l6.267 3.636c.54.313 1.233-.066 1.233-.697v-2.94l6.267 3.636c.54.314 1.233-.065 1.233-.696V4.308c0-.63-.693-1.01-1.233-.696L8.5 7.248v-2.94c0-.63-.692-1.01-1.233-.696L1 7.248V4a.5.5 0 0 0-.5-.5z" />
+                            </svg>
+                        </button>
+                        <button id="play-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-play-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                <path
+                                    d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z" />
+                            </svg>
+                        </button>
+                        <button id="forward-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-skip-forward-fill navigation-icon" viewBox="0 0 16 16">
+                                <path
+                                    d="M15.5 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V8.753l-6.267 3.636c-.54.313-1.233-.066-1.233-.697v-2.94l-6.267 3.636C.693 12.703 0 12.324 0 11.693V4.308c0-.63.693-1.01 1.233-.696L7.5 7.248v-2.94c0-.63.693-1.01 1.233-.696L15 7.248V4a.5.5 0 0 1 .5-.5z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="progress-wrapper">
+                        <span id="current-time" class="time">0:00</span>
+                        <input type="range" id="seek-slider" max="100" value="0">
+                        <span id="duration" class="time">0:00</span>
+                    </div>
+                </div>
+
+                <div class="up-next">
+                    <div class="title">
+                        UP NEXT
+                    </div>
+                    <div class="track up-next-title">
+                        Reflection
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="content">
+            <section class="top-section">
+                <div class="now-playing">
+                    <div class="track-info">
+                        <img class="now-playing-cover" src="../images/placeholder_cover.jpg" alt="">
+                        <div class="info">
+                            <p class="title now-playing-title">Walk with kings</p>
+                            <p class="artists now-playing-artists">MYST</p>
+                        </div>
+                        <div class="up-next">
+                            <p class="title">
+                                UP NEXT
+                            </p>
+                            <p class="track-title up-next-title">
+                                Despacito
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="featured">
+                    <div class="title">
+                        <h1>Featured for you</h1>
+                        <p>See Other</p>
+                    </div>
+
+                    <div class="info">
+                        <div class="grid">
+                            <p class="artists">
+                                MYST
+                            </p>
+                            <p class="track">
+                                Walk with kings
+                            </p>
+                            <p class="duration">
+                                3:40 min
+                            </p>
+                        </div>
+                        <div class="frame">
+                            <div class="fade"></div>
+                            <div class="image"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recently-listened">
+                    <h1>Saved Tracks</h1>
+
+                    <div class="items" id="saved-tracks-container">
+                        <!-- inserted via preloader -->
+                    </div>
+                </div>
+            </section>
+
+            <section class="recommended page-switchable" id="your-zone">
+                <h1>Recently Listened</h1>
+
+                <div class="items" id="recent-tracks-container">
+
+                </div>
+            </section>
+
+            <section class="browse page-switchable" id="browse" style="display: none;">
+                <h1>Browse</h1>
+
+                <div class="items" id="browse-container">
+
+                </div>
+            </section>
+
+            <section class="playlists page-switchable" id="playlists" style="display: none;">
+                <div class="heading">
+                    <h1>Your playlists</h1>
+                    <p class="create-new-playlist" onclick="createNewPlaylistWindow()">
+                        New playlist
+                    </p>
+                </div>
+
+                <div class="items" id="playlists-container">
+
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="../js/index/app.js"></script>
+    <script src="../js/index/nav.js"></script>
+    <script src="../js/index/player.js"></script>
+    <script src="../js/index/search.js"></script>
+    <script src="../js/index/playlists.js"></script>
+    <script src="../js/index/keyboard.js"></script>
+</body>
+
+</html>

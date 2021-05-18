@@ -1,0 +1,89 @@
+html,
+body {
+    background: #1a1927;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-family: Helvetica, Arial, sans-serif;
+
+    section {
+        height: 100vh;
+        -webkit-user-select: none;
+        -webkit-app-region: drag;
+
+        &.left {
+            background-image: url("../../images/login-left.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position-x: center;
+            z-index: 8;
+        }
+
+        &.right {
+            padding: 3rem;
+            display: grid;
+            grid-template-rows: 7rem 1fr;
+            align-items: center;
+            box-sizing: border-box;
+
+            h1 {
+                color: white;
+                text-align: center;
+                margin: 0;
+                margin-bottom: 1rem;
+            }
+
+            .container {
+                display: grid;
+                grid-template-rows: 1fr 1fr 1fr;
+                height: 100%;
+
+                .wrapper {
+                    width: 100%;
+                    -webkit-app-region: no-drag;
+
+                    label {
+                        font-size: 0.7rem;
+                        text-transform: uppercase;
+                        color: #96caf8;
+                        background: #1a1927;
+                        position: relative;
+                        top: 0.5rem;
+                        left: 1.5rem;
+                        padding: 0 0.5rem;
+                        display: inline;
+                        width: fit-content;
+                    }
+
+                    input[type="text"],
+                    input[type="password"] {
+                        height: 2.5rem;
+                        background: none;
+                        border: 2px solid #96caf8;
+                        padding: 0.5rem 1rem;
+                        outline: none;
+                        border-radius: 10px;
+                        width: 100%;
+                        box-sizing: border-box;
+                        color: #96caf8be;
+                    }
+                }
+
+                input[type="submit"] {
+                    height: 2.5rem;
+                    border: 2px solid #96caf8;
+                    background-color: #96caf8;
+                    color: #1a1927;
+                    border-radius: 10px;
+                    font-weight: 800;
+                    outline: none;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
